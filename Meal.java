@@ -35,7 +35,7 @@ public class Meal {
      * @param servingAmount
      * @param caloriesPerServing
      */
-    public Meal(String mealType, String name, double servingAmount, int caloriesPerServing) {
+    public Meal(String mealType, String name, double servingAmount, double caloriesPerServing) {
 	this.mealType = mealType;
 	this.name = name;
 	this.servingAmount = servingAmount;
