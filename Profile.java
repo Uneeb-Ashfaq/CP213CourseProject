@@ -117,6 +117,13 @@ public class Profile {
         this.activityLevel = activityLevel;
     }
 
+    public double getBMI() {
+        if (height <= 0) {
+            return 0.0;
+        }
+        double heightMeters = height / 100.0;
+        return weight / (heightMeters * heightMeters);
+    }
 
     // ==========================
     // toString
@@ -133,3 +140,4 @@ public class Profile {
     }
 
 }
+

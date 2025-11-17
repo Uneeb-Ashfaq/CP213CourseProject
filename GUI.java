@@ -16,11 +16,70 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("CalorieAppTracker");
         frame.setLocationRelativeTo(null); // Center the window
-        
-        showProfileScreen();
+        showIntroScreen();  
+
         frame.setVisible(true);
     }
+
+    private void showIntroScreen() {
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(new Color(245, 245, 245)); // Light gray background
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        frame.add(panel);
+
+
+        JLabel titleLabel = new JLabel("CalorieAppTracker");
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 32));
+        titleLabel.setForeground(new Color(40, 40, 40));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBounds(50, 60, 430, 40);
+        panel.add(titleLabel);
+
+        JLabel taglineLabel = new JLabel("Track your calories, goals, and daily progress.");
+        taglineLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        taglineLabel.setForeground(new Color(90, 90, 90));
+        taglineLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        taglineLabel.setBounds(50, 110, 430, 25);
+        panel.add(taglineLabel);
+
+
+        // Continue Button
+        JButton continueButton = new JButton("Continue");
+        continueButton.setBounds(180, 450, 150, 45);
+        continueButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        continueButton.setBackground(new Color(100, 200, 150));
+        continueButton.setForeground(Color.WHITE);
+        continueButton.setFocusPainted(false);
+        continueButton.setOpaque(true);
+        continueButton.setContentAreaFilled(true);
+        continueButton.setBorder(BorderFactory.createEmptyBorder());
+        continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        // Hover effect
+        continueButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                continueButton.setBackground(new Color(80, 180, 130));
+            }
+            public void mouseExited(MouseEvent e) {
+                continueButton.setBackground(new Color(100, 200, 150));
+            }
+        });
+
+        continueButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showProfileScreen();
+        }
+    });
+        panel.add(continueButton);
+
+    }
+
+
+
     
+
     private void showProfileScreen() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -212,7 +271,6 @@ public class GUI {
         panel.add(headerText);
         
         // Goal Type
-    
         JLabel goalType = new JLabel("Goal Type:");
         goalType.setFont(new Font("SansSerif", Font.BOLD, 13));
         goalType.setBounds(50, 110, 120, 25);
@@ -225,10 +283,8 @@ public class GUI {
         goalCombo.setBackground(Color.WHITE);
         goalCombo.setOpaque(true);
         goalCombo.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
-
-        
         panel.add(goalCombo);
-        
+
         // Target Weight
         JLabel targetWeight = new JLabel("Target Weight (kg):");
         targetWeight.setFont(new Font("SansSerif", Font.BOLD, 13));
@@ -273,6 +329,7 @@ public class GUI {
             }
         });
         
+
         panel.add(continueButton);
     }
 
