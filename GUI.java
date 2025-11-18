@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+// ---------------------------------------------------------------------
 
 public class GUI {
     // Variables to store user data
@@ -8,7 +9,8 @@ public class GUI {
     private Profile userProfile;
     private Goal userGoal;  
 
-    
+// ---------------------------------------------------------------------
+
     public GUI() {
         userProfile = new Profile(); // Create empty profile
         frame = new JFrame();
@@ -24,7 +26,8 @@ public class GUI {
 
         frame.setVisible(true);
     }
-
+// ---------------------------------------------------------------------
+  
     private void showIntroScreen() {
 
 
@@ -76,7 +79,7 @@ public class GUI {
                 continueButton.setBackground(new Color(100, 200, 150));
             }
         });
-
+        // Next Screen
         continueButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -87,10 +90,7 @@ public class GUI {
 
     }
 
-
-
-    
-
+// ---------------------------------------------------------------------
    private void showProfileScreen() {
     JPanel panel = new JPanel();
     panel.setLayout(null);
@@ -201,7 +201,8 @@ public class GUI {
     continueButton.setContentAreaFilled(true);
     continueButton.setBorder(BorderFactory.createEmptyBorder());
     continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    
+
+    // Hover
     continueButton.addMouseListener(new MouseAdapter() {
         public void mouseEntered(MouseEvent e) {
             continueButton.setBackground(new Color(80, 180, 130));
@@ -249,6 +250,10 @@ public class GUI {
 
                 showGoalScreen();
 
+
+
+
+
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame,
                     "Age, height, and weight must be valid numbers.",
@@ -263,7 +268,8 @@ public class GUI {
     frame.revalidate();
     frame.repaint();
 }
-        
+// ---------------------------------------------------------------------
+  
 private void showGoalScreen() {
     JPanel panel = new JPanel();
     panel.setLayout(null);
@@ -345,6 +351,8 @@ private void showGoalScreen() {
         }
     });
     
+
+
     continueButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             String goalType = (String) goalCombo.getSelectedItem();
@@ -361,22 +369,26 @@ private void showGoalScreen() {
             try {
                 int months = Integer.parseInt(timeFrameInput);
                 double targetWeightValue = Double.parseDouble(targetWeightInput);
+
+                userGoal.setGoalType(goalType);
+                userGoal.setTargetWeight(targetWeightValue);
+                userGoal.setMonths(months);
+                userGoal.calculateDailyCalories(userProfile);
+
            if (targetWeightValue <= 0 || months <= 0) {
                 JOptionPane.showMessageDialog(frame, 
                     "Target weight and time frame must be positive!", 
                     "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            userGoal.setGoalType(goalType);
-            userGoal.setTargetWeight(targetWeightValue);
-            userGoal.setMonths(months);
-            userGoal.calculateDailyCalories(userProfile);
+            showHomePage();
 
             JOptionPane.showMessageDialog(frame,
                 String.format("Goal set!\nType: %s\nTarget: %.1f kg\nTime: %d months", 
                     goalType, targetWeightValue, months),
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE);
+            
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(frame,
@@ -385,12 +397,26 @@ private void showGoalScreen() {
         }
     }
 });        
-   
+
+
     panel.add(continueButton);
     frame.getContentPane().removeAll();
     frame.add(panel);
     frame.revalidate();
     frame.repaint();
+}
+// ---------------------------------------------------------------------
+private void showHomePage() {
+    JPanel panel = new JPanel();
+    panel.setLayout(null);
+    panel.setBackground(new Color(245, 245, 245));
+
+
+    frame.getContentPane().removeAll();
+    frame.add(panel);
+    frame.revalidate();
+    frame.repaint();
+
 }
 
 
