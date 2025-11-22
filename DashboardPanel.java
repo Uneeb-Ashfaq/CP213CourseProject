@@ -181,7 +181,12 @@ public class DashboardPanel extends JPanel {
                 ));
             }
             mealsText.setText(mealsList.toString());
-            mealsBox.add(mealsText);
+            JScrollPane scrollPane = new JScrollPane(mealsText);
+            scrollPane.setBounds(20, 20, mealsWidth - 40, 240);
+            scrollPane.setBorder(null);
+            scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+            mealsBox.add(scrollPane);
         }
         add(mealsBox);
 
@@ -207,7 +212,7 @@ public class DashboardPanel extends JPanel {
 
         JButton editProfileBtn = createActionButton("⚙️ Edit Profile", new Color(150, 150, 150));
         editProfileBtn.setBounds(btnStartX + (btnWidth + btnSpacing) * 2, btnY, btnWidth, btnHeight);
-        editProfileBtn.addActionListener(e -> app.showProfilePanel());
+        editProfileBtn.addActionListener(e -> app.showEditProfilePanel());
         add(editProfileBtn);
 
         JButton chatbot = createActionButton("⚙️ Talk to chatbot!", new Color(100, 100, 100));

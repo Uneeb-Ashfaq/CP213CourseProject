@@ -110,9 +110,6 @@ public class AddMealPanel extends JPanel {
 
                 Meal meal = new Meal(type, name, serving, caloriesPerServing);
                 app.getMeals().add(meal);
-
-                JOptionPane.showMessageDialog(AddMealPanel.this,String.format("Meal saved:\n%s (%.1f servings, %.0f kcal per serving)",name, servings, caloriesPerServing),
-                        "Meal Logged",JOptionPane.INFORMATION_MESSAGE);
                 app.showDashboard();
 
             } catch (NumberFormatException ex) {
@@ -120,6 +117,7 @@ public class AddMealPanel extends JPanel {
             }
         });
 
+        add(continueButton);
 
         // Cancel Button
         JButton cancelButton = new JButton("Cancel");
@@ -144,12 +142,9 @@ public class AddMealPanel extends JPanel {
         });
 
 
-        // Action → go back to home page
         cancelButton.addActionListener(e -> app.showDashboard());
-        continueButton.addActionListener(e -> app.showDashboard());
 
         add(cancelButton);
-        add(continueButton);
 
     }
 }

@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 // ---------------------------------------------------------------------
 
 public class GUI {
@@ -12,13 +11,12 @@ public class GUI {
     private Profile userProfile;
     private Goal userGoal;
     private ArrayList<Meal> meals;
-    
+
     private IntroPanel introPanel;
     private ProfilePanel profilePanel;
     private GoalPanel goalPanel;
     private AddMealPanel addMealPanel;
-    private DashboardPanel dashboardPanel;
-    private ChatBotPanel  chatbotPanel;
+    private ChatBotPanel chatbotPanel;
 
     // ---------------------------------------------------------------------
 
@@ -32,15 +30,12 @@ public class GUI {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Center the window
-        
+
         introPanel = new IntroPanel(this);
         profilePanel = new ProfilePanel(this);
         goalPanel = new GoalPanel(this);
         addMealPanel = new AddMealPanel(this);
         chatbotPanel = new ChatBotPanel(this);
- 
-
-
 
         showIntroPanel();
         frame.setVisible(true);
@@ -51,32 +46,35 @@ public class GUI {
     }
 
     public void showDashboard() {
-    dashboardPanel = new DashboardPanel(this);
-    setContent(dashboardPanel);
+        setContent(new DashboardPanel(this));
     }
 
     public void showProfilePanel() {
         setContent(profilePanel);
     }
-
+    
+    public void showEditProfilePanel() {
+        setContent(new EditProfilePanel(this));
+    }
     public void showGoalPanel() {
         setContent(goalPanel);
     }
-   public void showAddMealPage() {
-        setContent(addMealPanel);
+
+    public void showAddMealPage() {
+        setContent(new AddMealPanel(this));
     }
 
-public void showChatBotPanel() {
+    public void showChatBotPanel() {
         setContent(chatbotPanel);
     }
+
     private void setContent(JPanel panel) {
         frame.setContentPane(panel);
         frame.revalidate();
         frame.repaint();
     }
 
-    
-   public Profile getUserProfile() {
+    public Profile getUserProfile() {
         return userProfile;
     }
 
