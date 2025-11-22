@@ -1,0 +1,113 @@
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class LoginPanel extends JPanel {
+
+    private GUI app;
+
+    public LoginPanel(GUI app) {
+        this.app = app;
+
+
+        setLayout(null);
+        setBackground(new Color(245, 245, 245)); // Light gray background
+        setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = screenSize.width / 2;
+        int centerY = screenSize.height / 2;
+
+        JLabel headerText = new JLabel("Login");
+        headerText.setFont(new Font("SansSerif", Font.BOLD, 40));
+        headerText.setForeground(new Color(50, 50, 50));
+        headerText.setHorizontalAlignment(SwingConstants.CENTER);
+        headerText.setBounds(centerX - 300, 50, 600, 50);
+        add(headerText);
+
+        // Username
+        JLabel username = new JLabel("Username:");
+        username.setFont(new Font("SansSerif", Font.BOLD, 16));
+        username.setBounds(centerX - 350, 170, 200, 30);
+        add(username);
+
+        JTextField usernameText = new JTextField();
+        usernameText.setBounds(centerX - 150, 170, 450, 40);
+        usernameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        add(usernameText);
+
+        // Last Name
+        JLabel password = new JLabel("Password:");
+        password.setFont(new Font("SansSerif", Font.BOLD, 16));
+        password.setBounds(centerX - 350, 230, 200, 30);
+        add(password);
+
+        JPasswordField passwordText = new JPasswordField();
+        passwordText.setBounds(centerX - 150, 230 , 450, 40);
+        passwordText.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        add(passwordText);
+
+
+        // Continue Button
+        JButton continueButton = new JButton("Login");
+        continueButton.setBounds(centerX - 125, centerY - 50, 250, 55);
+        continueButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        continueButton.setBackground(new Color(100, 200, 150));
+        continueButton.setForeground(Color.WHITE);
+        continueButton.setFocusPainted(false);
+        continueButton.setOpaque(true);
+        continueButton.setContentAreaFilled(true);
+        continueButton.setBorder(BorderFactory.createEmptyBorder());
+        continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Hover effect
+        continueButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                continueButton.setBackground(new Color(80, 180, 130));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                continueButton.setBackground(new Color(100, 200, 150));
+            }
+        });
+
+
+        continueButton.addActionListener(e -> {
+            String usernameValue = usernameText.getText().trim();
+            String passwordValue = new String(passwordText.getPassword()).trim();
+
+            if (usernameValue.isEmpty() || passwordValue.isEmpty()) {
+                JOptionPane.showMessageDialog(LoginPanel.this, "Please fill in both username and password!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+                String savedEmail = app.getRegisteredEmail();
+                String savedPass = app.getRegisteredPassword();
+
+            if (savedEmail == null || savedPass == null) {
+                JOptionPane.showMessageDialog(LoginPanel.this,"No account found. Please sign up first.","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Compare text using .equals()
+            if (!usernameValue.equals(savedEmail) || !passwordValue.equals(savedPass)) {
+                JOptionPane.showMessageDialog(LoginPanel.this, "Incorrect username or password!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+                
+            app.showProfilePanel();
+            });
+
+            add(continueButton);
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Load the background image
+        Image bgImage = new ImageIcon("bg.png").getImage();
+
+        // Draw it to fill the entire panel
+        g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    }
+}

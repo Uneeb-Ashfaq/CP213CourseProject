@@ -45,31 +45,57 @@ public class IntroPanel extends JPanel {
         features.setBounds(centerX - 125, 250, 700, 150);
         add(features);
 
-        // Continue Button
-        JButton continueButton = new JButton("Get Started");
-        continueButton.setBounds(centerX - 125, centerY - 50, 250, 55);
-        continueButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        continueButton.setBackground(new Color(100, 200, 150));
-        continueButton.setForeground(Color.WHITE);
-        continueButton.setFocusPainted(false);
-        continueButton.setOpaque(true);
-        continueButton.setContentAreaFilled(true);
-        continueButton.setBorder(BorderFactory.createEmptyBorder());
-        continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // signup Button
+        JButton signupButton = new JButton("Sign Up");
+        signupButton.setBounds(centerX - 235, centerY - 20, 220, 60);
+        signupButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        signupButton.setBackground(new Color(46, 204, 113));
+        signupButton.setForeground(Color.WHITE);
+        signupButton.setFocusPainted(false);
+        signupButton.setOpaque(true);
+        signupButton.setContentAreaFilled(true);
+        signupButton.setBorder(BorderFactory.createEmptyBorder());
+        signupButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // Hover effect
-        continueButton.addMouseListener(new MouseAdapter() {
+        signupButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                continueButton.setBackground(new Color(80, 180, 130));
+                signupButton.setBackground(new Color(39, 174, 96)); // Darker green
             }
 
             public void mouseExited(MouseEvent e) {
-                continueButton.setBackground(new Color(100, 200, 150));
+                signupButton.setBackground(new Color(46, 204, 113));
             }
         });
         // Next Screen
-        continueButton.addActionListener(e -> app.showProfilePanel());
-        add(continueButton);
+        signupButton.addActionListener(e -> app.showSignupPanel());
+        add(signupButton);
+
+        // login Button
+        JButton loginButton = new JButton("Log In");
+        loginButton.setBounds(centerX + 15, centerY - 20, 220, 60);
+        loginButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        loginButton.setBackground(new Color(52, 152, 219)); 
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setFocusPainted(false);
+        loginButton.setOpaque(true);
+        loginButton.setContentAreaFilled(true);
+        loginButton.setBorder(BorderFactory.createEmptyBorder());
+        loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Hover effect
+        loginButton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                loginButton.setBackground(new Color(41, 128, 185)); // Darker blue
+            }
+
+            public void mouseExited(MouseEvent e) {
+                loginButton.setBackground(new Color(52, 152, 219));
+            }
+        });
+        // Next Screen
+        loginButton.addActionListener(e -> app.showLoginPanel());
+        add(loginButton);
 
     }
 

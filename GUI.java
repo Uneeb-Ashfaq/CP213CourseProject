@@ -11,12 +11,18 @@ public class GUI {
     private Profile userProfile;
     private Goal userGoal;
     private ArrayList<Meal> meals;
+    private String registeredEmail;
+    private String registeredPassword;
+
 
     private IntroPanel introPanel;
     private ProfilePanel profilePanel;
+    private SignupPanel signPanel;
+    private LoginPanel loginPanel;
     private GoalPanel goalPanel;
     private AddMealPanel addMealPanel;
     private ChatBotPanel chatbotPanel;
+
 
     // ---------------------------------------------------------------------
 
@@ -32,10 +38,13 @@ public class GUI {
         frame.setLocationRelativeTo(null); // Center the window
 
         introPanel = new IntroPanel(this);
+        loginPanel = new LoginPanel(this);
+        signPanel = new SignupPanel(this);
         profilePanel = new ProfilePanel(this);
         goalPanel = new GoalPanel(this);
         addMealPanel = new AddMealPanel(this);
         chatbotPanel = new ChatBotPanel(this);
+
 
         showIntroPanel();
         frame.setVisible(true);
@@ -45,6 +54,13 @@ public class GUI {
         setContent(introPanel);
     }
 
+    public void showLoginPanel() {
+        setContent(loginPanel);
+    }
+
+    public void showSignupPanel() {
+        setContent(signPanel);
+    }
     public void showDashboard() {
         setContent(new DashboardPanel(this));
     }
@@ -88,6 +104,19 @@ public class GUI {
 
     public JFrame getFrame() {
         return frame;
+    }
+
+        public void setRegisteredCredentials(String email, String password) {
+        this.registeredEmail = email;
+        this.registeredPassword = password;
+    }
+
+    public String getRegisteredEmail() {
+        return registeredEmail;
+    }
+
+    public String getRegisteredPassword() {
+        return registeredPassword;
     }
 
     public static void main(String[] args) {
