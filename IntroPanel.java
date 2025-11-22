@@ -33,8 +33,8 @@ public class IntroPanel extends JPanel {
 
         JTextArea features = new JTextArea(
                 "• Track Daily Calories & Meals\n\n" +
-                        "• Set & Achieve Personal Goals\n\n" +
-                        "• Monitor Your Progress Over Time");
+                "• Set & Achieve Personal Goals\n\n" +
+                "• Monitor Your Progress Over Time");
         features.setFont(new Font("SansSerif", Font.PLAIN, 18));
         features.setForeground(new Color(80, 80, 80));
         features.setBackground(new Color(245, 245, 245));

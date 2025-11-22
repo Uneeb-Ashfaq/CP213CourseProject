@@ -90,8 +90,7 @@ public class GoalPanel extends JPanel {
             String timeFrameInput = timeFrameText.getText().trim();
 
             if (targetWeightInput.isEmpty() || timeFrameInput.isEmpty() || goalType.equals("Select")) {
-                JOptionPane.showMessageDialog(GoalPanel.this, "Please fill in all fields!", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(GoalPanel.this, "Please fill in all fields!", "Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -100,8 +99,7 @@ public class GoalPanel extends JPanel {
                 double targetWeightValue = Double.parseDouble(targetWeightInput);
 
                 if (targetWeightValue <= 0 || months <= 0) {
-                    JOptionPane.showMessageDialog(GoalPanel.this, "Target weight and time frame must be positive!",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(GoalPanel.this, "Target weight and time frame must be positive!","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 Goal userGoal = app.getUserGoal();
@@ -114,21 +112,19 @@ public class GoalPanel extends JPanel {
                 JOptionPane.showMessageDialog(GoalPanel.this,
                         String.format(
                                 "Goal set!\n\n" +
-                                        "Goal Type: %s\n" +
-                                        "Target Weight: %.1f kg in %d months\n\n" +
-                                        "Daily Calorie Target: %.0f kcal",
+                                "Goal Type: %s\n" +
+                                "Target Weight: %.1f kg in %d months\n\n" +
+                                "Daily Calorie Target: %.0f kcal",
                                 goalType,
                                 targetWeightValue,
                                 months,
                                 userGoal.getDailyCalorieGoal()),
-                        "Goal Summary",
-                        JOptionPane.INFORMATION_MESSAGE);
+                        "Goal Summary", JOptionPane.INFORMATION_MESSAGE);
 
             app.showDashboard();
 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(GoalPanel.this, "Target weight and time frame must be valid numbers.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(GoalPanel.this, "Target weight and time frame must be valid numbers.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         });
