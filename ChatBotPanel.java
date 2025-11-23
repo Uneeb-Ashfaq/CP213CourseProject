@@ -6,7 +6,6 @@ import java.awt.event.*;
 public class ChatBotPanel extends JPanel{
     
 
-    //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
     private GUI app;
 
     public ChatBotPanel(GUI app) {

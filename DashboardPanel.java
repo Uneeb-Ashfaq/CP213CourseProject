@@ -34,11 +34,9 @@ public class DashboardPanel extends JPanel {
         for (Meal meal : app.getMeals()) {
             todayCalories += meal.getCalories() * meal.getServingAmount();
         }
+            int cardsStartX = (screenSize.width - 1080) / 2;
 
- 
-        int cardsStartX = (screenSize.width - 1080) / 2;
-
-        // Card 1: Today’s Calories
+        // Card 1: Today Calories
         JPanel calorieCard = createStatCard(
                 "Today's Calories",
                 String.format("%.0f / %.0f kcal", todayCalories, app.getUserGoal().getDailyCalorieGoal()),
@@ -77,11 +75,11 @@ public class DashboardPanel extends JPanel {
         add(activityCard);
 
         // =======================
-        // Profile + Meals columns (centered as block)
+        // Profile and Meals columns 
         // =======================
         int contentStartX = (screenSize.width - 1040) / 2;
 
-        // Profile header + box
+        // Profile header 
         JLabel profileHeader = new JLabel("Your Profile");
         profileHeader.setFont(new Font("SansSerif", Font.BOLD, 22));
         profileHeader.setForeground(new Color(50, 50, 50));
@@ -143,8 +141,7 @@ public class DashboardPanel extends JPanel {
         mealsBox.setBounds(mealsX, 370, 480, 280);
 
         if (app.getMeals().isEmpty()) {
-            JLabel noMeals = new JLabel(
-                    "<html><center>No meals logged yet.<br><br>Click 'Log Meal' to get started!</center></html>");
+            JLabel noMeals = new JLabel("<html><center>No meals logged yet.<br><br>Click 'Log Meal' to get started!</center></html>");
             noMeals.setFont(new Font("SansSerif", Font.PLAIN, 16));
             noMeals.setForeground(new Color(150, 150, 150));
             noMeals.setHorizontalAlignment(SwingConstants.CENTER);
@@ -161,51 +158,43 @@ public class DashboardPanel extends JPanel {
             StringBuilder mealsList = new StringBuilder();
             int count = 1;
             for (Meal meal : app.getMeals()) {
-                mealsList.append(String.format(
-                        "%d. %s (%s)\n   %.0f kcal\n\n",
+                mealsList.append(String.format("%d. %s (%s)\n   %.0f kcal\n\n",
                         count++,
                         meal.getName(),
                         meal.getMealType(),
-                        meal.getCalories() * meal.getServingAmount()
-                ));
+                        meal.getCalories() * meal.getServingAmount()));
             }
             mealsText.setText(mealsList.toString());
             JScrollPane scrollPane = new JScrollPane(mealsText);
             scrollPane.setBounds(20, 20, 440, 240);
             scrollPane.setBorder(null);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
             mealsBox.add(scrollPane);
         }
         add(mealsBox);
 
         // =======================
-        // Bottom buttons (3 centered)
+        // Bottom buttons
         // =======================
-        int btnY = 330 + 350;
-        int btnWidth = 240;
-        int btnHeight = 60;
-        int btnSpacing = 40;
-        int totalBtnWidth = btnWidth * 3 + btnSpacing * 2;
-        int btnStartX = (screenSize.width  - totalBtnWidth) / 2;
+        int btnStartX = (screenSize.width  - 800) / 2;
 
         JButton logMealBtn = createActionButton("+ Log Meal", new Color(46, 204, 113));
-        logMealBtn.setBounds(btnStartX, btnY, btnWidth, btnHeight);
+        logMealBtn.setBounds(btnStartX, 680, 240, 60);
         logMealBtn.addActionListener(e -> app.showAddMealPage());
         add(logMealBtn);
 
         JButton viewProgressBtn = createActionButton("📈 View Progress", new Color(52, 152, 219));
-        viewProgressBtn.setBounds(btnStartX + btnWidth + btnSpacing, btnY, btnWidth, btnHeight);
+        viewProgressBtn.setBounds(btnStartX + 280, 680, 240, 60);
         viewProgressBtn.addActionListener(e -> showProgressDialog());
         add(viewProgressBtn);
 
         JButton editProfileBtn = createActionButton("⚙️ Edit Profile", new Color(150, 150, 150));
-        editProfileBtn.setBounds(btnStartX + (btnWidth + btnSpacing) * 2, btnY, btnWidth, btnHeight);
+        editProfileBtn.setBounds(btnStartX + (280) * 2, 680, 240, 60);
         editProfileBtn.addActionListener(e -> app.showEditProfilePanel());
         add(editProfileBtn);
 
-        JButton chatbot = createActionButton("⚙️ Talk to chatbot!", new Color(100, 100, 100));
-        chatbot.setBounds(btnStartX + (btnWidth + btnSpacing) * 3, btnY, btnWidth, btnHeight);
+        JButton chatbot = createActionButton("🤖 Talk to chatbot!", new Color(100, 100, 100));
+        chatbot.setBounds(btnStartX + (280) * 3, 680, 240, 60);
         chatbot.addActionListener(e -> app.showChatBotPanel());
         add(chatbot);
     }
@@ -213,15 +202,12 @@ public class DashboardPanel extends JPanel {
 
 
     // ===== helper: stat card =====
-    private JPanel createStatCard(String title, String mainValue, String subValue,
-                                  Color bgColor, Color accentColor) {
+    private JPanel createStatCard(String title, String mainValue, String subValue, Color bgColor, Color accentColor) {
         JPanel card = new JPanel();
         card.setLayout(null);
         card.setBackground(bgColor);
-        card.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(accentColor, 3),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)
-        ));
+        card.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(accentColor, 3),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -268,6 +254,9 @@ public class DashboardPanel extends JPanel {
         return button;
     }
 
+
+
+ 
     // ===== progress popup =====
     private void showProgressDialog() {
         double weightDiff = app.getUserGoal().getTargetWeight() - app.getUserProfile().getWeight();
@@ -296,10 +285,7 @@ public class DashboardPanel extends JPanel {
                         app.getUserGoal().getDailyCalorieGoal(),
                         todayCalories,
                         Math.max(0, app.getUserGoal().getDailyCalorieGoal() - todayCalories)
-                ),
-                "Your Progress",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+                ),"Your Progress",JOptionPane.INFORMATION_MESSAGE);
     }
     @Override
     protected void paintComponent(Graphics g) {

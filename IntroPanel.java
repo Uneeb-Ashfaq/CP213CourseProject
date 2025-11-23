@@ -47,7 +47,7 @@ public class IntroPanel extends JPanel {
 
         // signup Button
         JButton signupButton = new JButton("Sign Up");
-        signupButton.setBounds(centerX - 235, centerY - 20, 220, 60);
+        signupButton.setBounds(centerX - 235, centerY - 40, 220, 60);
         signupButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         signupButton.setBackground(new Color(46, 204, 113));
         signupButton.setForeground(Color.WHITE);
@@ -73,9 +73,9 @@ public class IntroPanel extends JPanel {
 
         // login Button
         JButton loginButton = new JButton("Log In");
-        loginButton.setBounds(centerX + 15, centerY - 20, 220, 60);
+        loginButton.setBounds(centerX + 15, centerY - 40, 220, 60);
         loginButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        loginButton.setBackground(new Color(52, 152, 219)); 
+        loginButton.setBackground(new Color(52, 152, 219));
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
         loginButton.setOpaque(true);

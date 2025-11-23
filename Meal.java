@@ -41,18 +41,7 @@ public class Meal {
 	this.caloriesPerServing = caloriesPerServing;
     }
 
-    /**
-     * Copy constructor
-     *
-     * @param other another Meal object
-     */
-    public Meal(Meal other) {
 
-	this.mealType = other.mealType;
-	this.name = other.name;
-	this.servingAmount = other.servingAmount;
-	this.caloriesPerServing = other.caloriesPerServing;
-    }
 
 
     // ==========================
@@ -93,19 +82,9 @@ public class Meal {
     }
 
     
-    
-    // ==========================
-    // toString and compareTo
-    // ==========================
-
-
-    @Override
-    public String toString() {
-        String string = "";
-        string += "Meal: " + this.name + " | Type: " + this.mealType + "\n";
-        string += "Serving: " + this.servingAmount + " | Calories: " + this.caloriesPerServing + "\n";
-        return string;
-    }
-
 
 }
+
+
+
+

@@ -148,17 +148,5 @@ public class Goal {
         }
     }
 
-    // ==========================
-    // toString
-    // ==========================
 
-    @Override
-    public String toString() {
-        String string = "";
-        string += "Goal Type: " + this.goalType + "\n";
-        string += "Target Weight: " + this.targetWeight + " kg\n";
-        string += "Time Frame: " + this.months + " months\n";
-        string += "Daily Calorie Goal: " + this.dailyCalorieGoal + " kcal\n";
-        return string;
-    }
 }
