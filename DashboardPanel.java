@@ -34,45 +34,111 @@ public class DashboardPanel extends JPanel {
         for (Meal meal : app.getMeals()) {
             todayCalories += meal.getCalories() * meal.getServingAmount();
         }
-            int cardsStartX = (screenSize.width - 1080) / 2;
+        int cardsStartX = (screenSize.width - 1080) / 2;
 
-        // Card 1: Today Calories
-        JPanel calorieCard = createStatCard(
-                "Today's Calories",
-                String.format("%.0f / %.0f kcal", todayCalories, app.getUserGoal().getDailyCalorieGoal()),
-                String.format("%.0f remaining",
-                Math.max(0, app.getUserGoal().getDailyCalorieGoal() - todayCalories)),
-                new Color(255, 243, 224),
-                new Color(255, 183, 77));
+        // ==================================
+        // Card 1: Today's Calories
+        // ==================================
+
+        String caloriesValue = String.format("%.0f / %.0f kcal",todayCalories,app.getUserGoal().getDailyCalorieGoal());
+        String caloriesRemaining = String.format("%.0f remaining",Math.max(0, app.getUserGoal().getDailyCalorieGoal() - todayCalories));
+
+        // Create card panel
+        JPanel calorieCard = new JPanel();
+        calorieCard.setLayout(null);
+        calorieCard.setBackground(new Color(255, 243, 224));
         calorieCard.setBounds(cardsStartX, 140, 340, 160);
+        calorieCard.setBorder(BorderFactory.createLineBorder(new Color(255, 183, 77), 3));
         add(calorieCard);
+        
+        // Title label
+        JLabel title1 = new JLabel("Today's Calories");
+        title1.setFont(new Font("SansSerif", Font.BOLD, 16));
+        title1.setForeground(new Color(80, 80, 80));
+        title1.setBounds(15, 15, 310, 25);
+        calorieCard.add(title1);
 
+        JLabel value1 = new JLabel(caloriesValue);
+        value1.setFont(new Font("SansSerif", Font.BOLD, 26));
+        value1.setForeground(new Color(40, 40, 40));  
+        value1.setBounds(15, 50, 310, 40);
+        calorieCard.add(value1);
+
+        JLabel desc1 = new JLabel(caloriesRemaining);
+        desc1.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        desc1.setForeground(new Color(100, 100, 100));
+        desc1.setBounds(15, 100, 310, 25);
+        calorieCard.add(desc1);
+        // ==================================
         // Card 2: Goal Progress
+        // ==================================
+
         double remaining = Math.abs(app.getUserGoal().getTargetWeight() - app.getUserProfile().getWeight());
         String goalText =
                 app.getUserGoal().getGoalType().equals("Lose") ? "to lose" :
                 app.getUserGoal().getGoalType().equals("Gain") ? "to gain" : "to maintain";
-
-        JPanel goalCard = createStatCard(
-                "Goal Progress",
-                String.format("%.1f kg %s", remaining, goalText),
-                app.getUserGoal().getMonths() + " months remaining",
-                new Color(232, 245, 253),
-                new Color(66, 165, 245)
-        );
+        String valueText = String.format("%.1f kg %s", remaining, goalText);
+        String descText = app.getUserGoal().getMonths() + " months remaining";
+        JPanel goalCard = new JPanel();
+        goalCard.setLayout(null);
+        goalCard.setBackground(new Color(232, 245, 253));
         goalCard.setBounds(cardsStartX + 370, 140, 340, 160);
+        goalCard.setBorder(BorderFactory.createLineBorder(new Color(66, 165, 245), 3));
         add(goalCard);
 
+        // Title
+        JLabel title2 = new JLabel("Goal Progress");
+        title2.setFont(new Font("SansSerif", Font.BOLD, 16));
+        title2.setForeground(new Color(80, 80, 80));
+        title2.setBounds(15, 15, 310, 25);
+        goalCard.add(title2);
+
+        JLabel value2 = new JLabel(valueText);
+        value2.setFont(new Font("SansSerif", Font.BOLD, 26));
+        value2.setForeground(new Color(40, 40, 40));
+        value2.setBounds(15, 50, 310, 40);
+        goalCard.add(value2);
+
+        // Sub Value
+        JLabel desc2 = new JLabel(descText);
+        desc2.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        desc2.setForeground(new Color(100, 100, 100));
+        desc2.setBounds(15, 100, 310, 25);
+        goalCard.add(desc2);
+        // ==================================
         // Card 3: Activity Level
-        JPanel activityCard = createStatCard(
-                "Activity Level",
-                app.getUserProfile().getActivityLevel(),
-                "Current level",
-                new Color(232, 245, 233),
-                new Color(102, 187, 106)
-        );
+        // ==================================
+
+        String activityValue = app.getUserProfile().getActivityLevel();
+        String activityDesc = "Current level";
+
+        JPanel activityCard = new JPanel();
+        activityCard.setLayout(null);
+        activityCard.setBackground(new Color(232, 245, 233));
         activityCard.setBounds(cardsStartX + 740, 140, 340, 160);
+        activityCard.setBorder(BorderFactory.createLineBorder(new Color(102, 187, 106), 3));
         add(activityCard);
+
+        // Title
+        JLabel title3 = new JLabel("Activity Level");
+        title3.setFont(new Font("SansSerif", Font.BOLD, 16));
+        title3.setForeground(new Color(80, 80, 80));
+        title3.setBounds(15, 15, 310, 25);
+        activityCard.add(title3);
+
+        // Main Value
+        JLabel value3 = new JLabel(activityValue);
+        value3.setFont(new Font("SansSerif", Font.BOLD, 26));
+        value3.setForeground(new Color(40, 40, 40));
+        value3.setBounds(15, 50, 310, 40);
+        activityCard.add(value3);
+
+        // Sub Value
+        JLabel desc3 = new JLabel(activityDesc);
+        desc3.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        desc3.setForeground(new Color(100, 100, 100));
+        desc3.setBounds(15, 100, 310, 25);
+        activityCard.add(desc3);
 
         // =======================
         // Profile and Meals columns 
@@ -178,57 +244,37 @@ public class DashboardPanel extends JPanel {
         // =======================
         int btnStartX = (screenSize.width  - 800) / 2;
 
-        JButton logMealBtn = createActionButton("+ Log Meal", new Color(46, 204, 113));
-        logMealBtn.setBounds(btnStartX, 680, 240, 60);
-        logMealBtn.addActionListener(e -> app.showAddMealPage());
-        add(logMealBtn);
-
         JButton viewProgressBtn = createActionButton("📈 View Progress", new Color(52, 152, 219));
-        viewProgressBtn.setBounds(btnStartX + 280, 680, 240, 60);
+        viewProgressBtn.setBounds(btnStartX - 280, 700, 240, 50);
         viewProgressBtn.addActionListener(e -> showProgressDialog());
         add(viewProgressBtn);
 
         JButton editProfileBtn = createActionButton("⚙️ Edit Profile", new Color(150, 150, 150));
-        editProfileBtn.setBounds(btnStartX + (280) * 2, 680, 240, 60);
+        editProfileBtn.setBounds(btnStartX, 700, 240, 50);
         editProfileBtn.addActionListener(e -> app.showEditProfilePanel());
         add(editProfileBtn);
 
+        JButton logMealBtn = createActionButton("+ Log Meal", new Color(46, 204, 113));
+        logMealBtn.setBounds(btnStartX + 280, 700, 240, 50);
+        logMealBtn.addActionListener(e -> app.showAddMealPage());
+        add(logMealBtn);
+
         JButton chatbot = createActionButton("🤖 Talk to chatbot!", new Color(100, 100, 100));
-        chatbot.setBounds(btnStartX + (280) * 3, 680, 240, 60);
+        chatbot.setBounds(btnStartX + 560, 700, 240, 50);
         chatbot.addActionListener(e -> app.showChatBotPanel());
         add(chatbot);
-    }
+
+        JButton logout = createActionButton("Log Out!", new Color(231, 76, 60));
+        logout.setBounds(btnStartX + 840, 700, 240, 50);
+        logout.addActionListener(e -> app.showIntroPanel());
+        add(logout);
+
+
+            }
 
 
 
-    // ===== helper: stat card =====
-    private JPanel createStatCard(String title, String mainValue, String subValue, Color bgColor, Color accentColor) {
-        JPanel card = new JPanel();
-        card.setLayout(null);
-        card.setBackground(bgColor);
-        card.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(accentColor, 3),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
-
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-        titleLabel.setForeground(new Color(80, 80, 80));
-        titleLabel.setBounds(15, 15, 310, 25);
-        card.add(titleLabel);
-
-        JLabel mainLabel = new JLabel(mainValue);
-        mainLabel.setFont(new Font("SansSerif", Font.BOLD, 26));
-        mainLabel.setForeground(new Color(40, 40, 40));
-        mainLabel.setBounds(15, 50, 310, 40);
-        card.add(mainLabel);
-
-        JLabel subLabel = new JLabel(subValue);
-        subLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        subLabel.setForeground(new Color(100, 100, 100));
-        subLabel.setBounds(15, 100, 310, 25);
-        card.add(subLabel);
-
-        return card;
-    }
+    
 
     // ===== helper: button style =====
     private JButton createActionButton(String text, Color bgColor) {
@@ -250,13 +296,9 @@ public class DashboardPanel extends JPanel {
                 button.setBackground(bgColor);
             }
         });
-
         return button;
     }
 
-
-
- 
     // ===== progress popup =====
     private void showProgressDialog() {
         double weightDiff = app.getUserGoal().getTargetWeight() - app.getUserProfile().getWeight();

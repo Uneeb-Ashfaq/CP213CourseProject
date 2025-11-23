@@ -55,11 +55,12 @@ public class GUI {
     }
 
     public void showLoginPanel() {
-        setContent(loginPanel);
+        setContent(new LoginPanel(this));
+
     }
 
     public void showSignupPanel() {
-        setContent(signPanel);
+        setContent(new SignupPanel(this));
     }
     public void showDashboard() {
         setContent(new DashboardPanel(this));

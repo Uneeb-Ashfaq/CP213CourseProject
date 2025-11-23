@@ -140,6 +140,8 @@ public class Goal {
 
         double maintenanceCalories = calculateMaintenanceCalories(profile);
         dailyCalorieGoal = maintenanceCalories + dailyAdjustment;
+        dailyCalorieGoal = Math.max(0, dailyCalorieGoal);
+
 
         // Fill ArrayList with daily calorie plan
         dailyCalories.clear();
