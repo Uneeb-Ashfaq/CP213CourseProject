@@ -22,7 +22,6 @@ public class GUI {
     private GoalPanel goalPanel;
     private AddMealPanel addMealPanel;
     private ResetPasswordPanel resetPasswordPanel;
-    private ChatBotPanel chatbotPanel;
 
 
     // ---------------------------------------------------------------------
@@ -44,11 +43,10 @@ public class GUI {
         profilePanel = new ProfilePanel(this);
         goalPanel = new GoalPanel(this);
         addMealPanel = new AddMealPanel(this);
-        chatbotPanel = new ChatBotPanel(this);
         resetPasswordPanel = new ResetPasswordPanel(this);
 
 
-        showIntroPanel();
+        showDashboard();
         frame.setVisible(true);
     }
 
@@ -89,10 +87,7 @@ public class GUI {
         setContent(new AddMealPanel(this));
     }
 
-    public void showChatBotPanel() {
-        setContent(chatbotPanel);
-    }
-
+ 
     private void setContent(JPanel panel) {
         frame.setContentPane(panel);
         frame.revalidate();
