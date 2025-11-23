@@ -26,15 +26,15 @@ public class LoginPanel extends JPanel {
         add(headerText);
 
         // Username
-        JLabel username = new JLabel("Username:");
-        username.setFont(new Font("SansSerif", Font.BOLD, 16));
-        username.setBounds(centerX - 350, 170, 200, 30);
-        add(username);
+        JLabel email = new JLabel("Email:");
+        email.setFont(new Font("SansSerif", Font.BOLD, 16));
+        email.setBounds(centerX - 350, 170, 200, 30);
+        add(email);
 
-        JTextField usernameText = new JTextField();
-        usernameText.setBounds(centerX - 150, 170, 450, 40);
-        usernameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        add(usernameText);
+        JTextField emailText = new JTextField();
+        emailText.setBounds(centerX - 150, 170, 450, 40);
+        emailText.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        add(emailText);
 
         // Last Name
         JLabel password = new JLabel("Password:");
@@ -71,10 +71,10 @@ public class LoginPanel extends JPanel {
         });
 
         continueButton.addActionListener(e -> {
-            String usernameValue = usernameText.getText().trim();
+            String emailValue = emailText.getText().trim();
             String passwordValue = new String(passwordText.getPassword()).trim();
 
-            if (usernameValue.isEmpty() || passwordValue.isEmpty()) {
+            if (emailValue.isEmpty() || passwordValue.isEmpty()) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "Please fill in both username and password!", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -89,13 +89,13 @@ public class LoginPanel extends JPanel {
             }
 
             // Compare text using .equals()
-            if (!usernameValue.equals(savedEmail) || !passwordValue.equals(savedPass)) {
+            if (!emailValue.equals(savedEmail) || !passwordValue.equals(savedPass)) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "Incorrect username or password!", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            app.showProfilePanel();
+            app.showDashboard();
         });
 
         add(continueButton);
