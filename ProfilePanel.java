@@ -2,21 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ProfilePanel extends JPanel {
 
+/**
+ * ProfilePanel
+ * Collects basic user information used for calorie calculations.
+ */
+public class ProfilePanel extends JPanel {
+    // Reference to main GUI app 
     private GUI app;
 
+
+    /**
+     * Constructs the profile setup screen.
+     *
+     */
     public ProfilePanel(GUI app) {
         this.app = app;
-
         setLayout(null);
         setBackground(new Color(245, 245, 245));
-
-        
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = screenSize.width / 2;
 
-        // Step 1 of 2 Text
+        // ========= Step 1 of 2 label =========
         JLabel stepLabel = new JLabel("Step 1 of 2");
         stepLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         stepLabel.setForeground(new Color(46, 204, 113));
@@ -24,7 +31,7 @@ public class ProfilePanel extends JPanel {
         stepLabel.setBounds(0, 30, screenSize.width, 20);
         add(stepLabel);
 
-        // HEADER
+        // ========= Header =========
         JLabel headerText = new JLabel("Create Your Profile");
         headerText.setFont(new Font("SansSerif", Font.BOLD, 40));
         headerText.setForeground(new Color(50, 50, 50));
@@ -34,7 +41,7 @@ public class ProfilePanel extends JPanel {
 
         
 
-        // First Name
+        // ========= First name Field =========
         JLabel firstName = new JLabel("First Name:");
         firstName.setFont(new Font("SansSerif", Font.BOLD, 16));
         firstName.setBounds(centerX - 350, 170 , 200, 30);
@@ -45,7 +52,7 @@ public class ProfilePanel extends JPanel {
         firstNameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(firstNameText);
 
-        // Last Name
+        // ========= Last Name Field =========
         JLabel lastName = new JLabel("Last Name:");
         lastName.setFont(new Font("SansSerif", Font.BOLD, 16));
         lastName.setBounds(centerX - 350, 230, 200, 30);
@@ -56,7 +63,7 @@ public class ProfilePanel extends JPanel {
         lastNameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(lastNameText);
 
-        // Age
+        // ========= Age Field =========
         JLabel age = new JLabel("Age:");
         age.setFont(new Font("SansSerif", Font.BOLD, 16));
         age.setBounds(centerX - 350, 290 , 200, 30);
@@ -67,7 +74,7 @@ public class ProfilePanel extends JPanel {
         ageText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(ageText);
 
-        // Gender
+        // ========= Gender Field =========
         JLabel gender = new JLabel("Gender:");
         gender.setFont(new Font("SansSerif", Font.BOLD, 16));
         gender.setBounds(centerX - 350, 350 , 200, 30);
@@ -79,7 +86,7 @@ public class ProfilePanel extends JPanel {
         genderCombo.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(genderCombo);
 
-        // Height
+        // ========= Height Field =========
         JLabel height = new JLabel("Height (cm):");
         height.setFont(new Font("SansSerif", Font.BOLD, 16));
         height.setBounds(centerX - 350,   410, 200, 30);
@@ -90,7 +97,7 @@ public class ProfilePanel extends JPanel {
         heightText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(heightText);
 
-        // Weight
+        // ========= Weight Field =========
         JLabel weight = new JLabel("Weight (kg):");
         weight.setFont(new Font("SansSerif", Font.BOLD, 16));
         weight.setBounds(centerX - 350,  470, 200, 30);
@@ -101,7 +108,7 @@ public class ProfilePanel extends JPanel {
         weightText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(weightText);
 
-        // Activity Level
+        // ========= Activity level Field =========
         JLabel activityLevel = new JLabel("Activity Level:");
         activityLevel.setFont(new Font("SansSerif", Font.BOLD, 16));
         activityLevel.setBounds(centerX - 350,   530, 200, 30);
@@ -113,7 +120,7 @@ public class ProfilePanel extends JPanel {
         activityLevelCombo.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(activityLevelCombo);
 
-        // Continue Button
+        // ========= Continue button =========
         JButton continueButton = new JButton("Continue");
         continueButton.setBounds(centerX - 140, 600, 280, 60);
         continueButton.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -125,7 +132,7 @@ public class ProfilePanel extends JPanel {
         continueButton.setBorder(BorderFactory.createEmptyBorder());
         continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Hover
+        // Hover effect for the continue button
         continueButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 continueButton.setBackground(new Color(80, 180, 130));
@@ -135,6 +142,7 @@ public class ProfilePanel extends JPanel {
             }
         });
 
+        // Save profile data and go to goal screen
         continueButton.addActionListener(e -> {
             String firstNameInput = firstNameText.getText().trim();
             String lastNameInput = lastNameText.getText().trim();
@@ -144,17 +152,21 @@ public class ProfilePanel extends JPanel {
             String weightInput = weightText.getText().trim();
             String activityInput = (String) activityLevelCombo.getSelectedItem();
 
-            // make sure fields are all full 
+            // Make sure all fields are filled and dropdowns are selected
             if (firstNameInput.isEmpty() || lastNameInput.isEmpty() || ageInput.isEmpty() || heightInput.isEmpty() || weightInput.isEmpty() ||genderInput.equals("Select") || activityInput.equals("Select")) {
                 JOptionPane.showMessageDialog(ProfilePanel.this, "Please fill in all fields!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             try {
+                // Turn the text inputs into numbers
                 int ageValue = Integer.parseInt(ageInput);
                 double heightValue = Double.parseDouble(heightInput);
                 double weightValue = Double.parseDouble(weightInput);
+
+                // Get the user's Profile object from the main app
                 Profile userProfile = app.getUserProfile();
+                // Update profile object stored in the main app
                 userProfile.setFirstName(firstNameInput);
                 userProfile.setLastName(lastNameInput);
                 userProfile.setAge(ageValue);
@@ -163,6 +175,7 @@ public class ProfilePanel extends JPanel {
                 userProfile.setWeight(weightValue);
                 userProfile.setActivityLevel(activityInput);
 
+                // Show summary to confirm
                 JOptionPane.showMessageDialog(ProfilePanel.this,
                         String.format(
                                 "Profile Saved!\n\n" +
@@ -182,8 +195,10 @@ public class ProfilePanel extends JPanel {
                         "Profile Summary",
                         JOptionPane.INFORMATION_MESSAGE);
 
+                // Move to Step 2 (GoalPanel)
                 app.showGoalPanel();
 
+                // Handles invalid numeric input for age, height, or weight
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(ProfilePanel.this, "Age, height, and weight must be valid numbers.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -193,6 +208,9 @@ public class ProfilePanel extends JPanel {
         add(continueButton);
 
     }
+    /**
+     * Paints the background image behind all components.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

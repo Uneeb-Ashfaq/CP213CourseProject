@@ -1,15 +1,15 @@
 public class Profile {
 
     // ==========================
-    // Private Attributes
+    // User Information Fields
     // ==========================
     private String firstName;
     private String lastName;
     private int age;
     private String gender;
-    private double height;
-    private double weight;
-    private String activityLevel;
+    private double height;        // in cm
+    private double weight;        // in kg
+    private String activityLevel; // Light, Moderate, Active, etc.
 
 
     // ==========================
@@ -17,7 +17,7 @@ public class Profile {
     // ==========================
 
     /**
-     * Default constructor
+     * Default constructor initializes empty/zero values.
      */
     public Profile() {
         this.firstName = "";
@@ -29,19 +29,11 @@ public class Profile {
         this.activityLevel = "";
     }
 
-
     /**
-     * Parameterized constructor
-     *
-     * @param firstName
-     * @param lastName
-     * @param age
-     * @param gender
-     * @param height
-     * @param weight
-     * @param activityLevel
+     * Full constructor for creating a profile with all fields.
      */
-    public Profile(String firstName, String lastName, int age, String gender, double height, double weight, String activityLevel) {
+    public Profile(String firstName, String lastName, int age, String gender,
+                   double height, double weight, String activityLevel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -50,9 +42,6 @@ public class Profile {
         this.weight = weight;
         this.activityLevel = activityLevel;
     }
-
-
-
 
 
     // ==========================
@@ -115,6 +104,10 @@ public class Profile {
         this.activityLevel = activityLevel;
     }
 
+    /**
+     * Calculates BMI using height (cm) and weight (kg).
+     * Returns 0 if height is invalid.
+     */
     public double getBMI() {
         if (height <= 0) {
             return 0.0;
@@ -123,6 +116,4 @@ public class Profile {
         return weight / (heightMeters * heightMeters);
     }
 
-
 }
-

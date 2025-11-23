@@ -2,9 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * IntroPanel
+ * First screen the user sees. Lets them choose Sign Up or Log In.
+ */
 public class IntroPanel extends JPanel {
 
-    private GUI app;
+    private GUI app; // reference to main app
 
     public IntroPanel(GUI app) {
         this.app = app;
@@ -13,10 +17,12 @@ public class IntroPanel extends JPanel {
         setBackground(new Color(245, 245, 245)); // Light gray background
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
+        // Screen size for centering components
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = screenSize.width / 2;
         int centerY = screenSize.height / 2;
 
+        // ========= Title =========
         JLabel titleLabel = new JLabel("CalorieAppTracker");
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 64));
         titleLabel.setForeground(new Color(30, 100, 60));
@@ -24,6 +30,8 @@ public class IntroPanel extends JPanel {
         titleLabel.setBounds(centerX - 450, 80, 900, 80);
         add(titleLabel);
 
+
+        // ========= Tagline =========
         JLabel taglineLabel = new JLabel("Your Personal Health & Fitness Companion");
         taglineLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         taglineLabel.setForeground(new Color(100, 100, 100));
@@ -31,10 +39,11 @@ public class IntroPanel extends JPanel {
         taglineLabel.setBounds(centerX - 450, 170, 900, 30);
         add(taglineLabel);
 
+        // ========= Features text =========
         JTextArea features = new JTextArea(
                 "• Track Daily Calories & Meals\n\n" +
-                        "• Set & Achieve Personal Goals\n\n" +
-                        "• Monitor Your Progress Over Time");
+                    "• Set & Achieve Personal Goals\n\n" +
+                    "• Monitor Your Progress Over Time");
         features.setFont(new Font("SansSerif", Font.PLAIN, 18));
         features.setForeground(new Color(80, 80, 80));
         features.setBackground(new Color(245, 245, 245));
@@ -45,7 +54,7 @@ public class IntroPanel extends JPanel {
         features.setBounds(centerX - 125, 250, 700, 150);
         add(features);
 
-        // signup Button
+        // ========= Sign Up button =========
         JButton signupButton = new JButton("Sign Up");
         signupButton.setBounds(centerX - 235, centerY - 40, 220, 60);
         signupButton.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -67,11 +76,12 @@ public class IntroPanel extends JPanel {
                 signupButton.setBackground(new Color(46, 204, 113));
             }
         });
-        // Next Screen
+
+        // Go to signup screen
         signupButton.addActionListener(e -> app.showSignupPanel());
         add(signupButton);
 
-        // login Button
+        // ========= Login button =========
         JButton loginButton = new JButton("Log In");
         loginButton.setBounds(centerX + 15, centerY - 40, 220, 60);
         loginButton.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -93,7 +103,7 @@ public class IntroPanel extends JPanel {
                 loginButton.setBackground(new Color(52, 152, 219));
             }
         });
-        // Next Screen
+        // Go to login screen
         loginButton.addActionListener(e -> app.showLoginPanel());
         add(loginButton);
 

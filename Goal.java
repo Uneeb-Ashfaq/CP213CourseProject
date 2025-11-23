@@ -34,6 +34,7 @@ public class Goal {
      * @param targetWeight
      * @param months
      */
+
     public Goal(String goalType, double targetWeight, int months) {
         this.goalType = goalType;
         this.targetWeight = targetWeight;
@@ -102,8 +103,8 @@ public class Goal {
             bmr = 10 * profile.getWeight() + 6.25 * profile.getHeight() - 5 * profile.getAge() - 161;
         }
 
-        // Activity multiplier
-        double multiplier = 1.0;
+        // Activity multiplier based on activity level text
+        double multiplier;
         switch (profile.getActivityLevel().toLowerCase()) {
             case "light":
                 multiplier = 1.375;
@@ -118,10 +119,9 @@ public class Goal {
                 multiplier = 1.9;
                 break;
             default:
-                multiplier = 1.2; 
+                multiplier = 1.2; // baseline for low activity / unknown
                 break;
         }
-
         return bmr * multiplier;
     }
 

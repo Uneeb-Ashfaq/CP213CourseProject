@@ -2,8 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
+/**
+ * GoalPanel
+ * Step 2 of 2: user sets weight goal and time frame.
+ */
 public class GoalPanel extends JPanel {
-    private GUI app;
+    private GUI app;  // reference to main GUI
 
     public GoalPanel(GUI app) {
         this.app = app;
@@ -12,6 +17,8 @@ public class GoalPanel extends JPanel {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = screenSize.width / 2;
 
+
+        // ========= Step 2 of 2 label =========
         JLabel stepLabel = new JLabel("Step 2 of 2");
         stepLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         stepLabel.setForeground(new Color(46, 204, 113));
@@ -19,7 +26,7 @@ public class GoalPanel extends JPanel {
         stepLabel.setBounds(0, 60, screenSize.width, 20);
         add(stepLabel);
 
-        // HEADER
+        // ========= Header =========
         JLabel headerText = new JLabel("Set Your Goal");
         headerText.setFont(new Font("SansSerif", Font.BOLD, 40));
         headerText.setForeground(new Color(50, 50, 50));
@@ -27,7 +34,7 @@ public class GoalPanel extends JPanel {
         headerText.setBounds(0, 80, screenSize.width, 50);
         add(headerText);
 
-        // Goal Type
+        // ========= Goal Type =========
         JLabel goalTypeLabel = new JLabel("Goal Type:");
         goalTypeLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         goalTypeLabel.setBounds(centerX - 350, 200, 200, 30);
@@ -40,7 +47,7 @@ public class GoalPanel extends JPanel {
         goalCombo.setBackground(Color.WHITE);
         add(goalCombo);
 
-        // Target Weight
+        // ========= Target Weight =========
         JLabel targetWeight = new JLabel("Target Weight (kg):");
         targetWeight.setFont(new Font("SansSerif", Font.BOLD, 16));
         targetWeight.setBounds(centerX - 350, 270, 200, 30);
@@ -51,7 +58,7 @@ public class GoalPanel extends JPanel {
         targetWeightText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(targetWeightText);
 
-        // Time Frame
+        // ========= Time Frame =========
         JLabel timeFrame = new JLabel("Time Frame (months):");
         timeFrame.setFont(new Font("SansSerif", Font.BOLD, 16));
         timeFrame.setBounds(centerX - 350, 340, 200, 30);
@@ -62,7 +69,7 @@ public class GoalPanel extends JPanel {
         timeFrameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(timeFrameText);
 
-        // Continue Button
+        // ========= Continue button =========
         JButton continueButton = new JButton("Continue");
         continueButton.setBounds(centerX - 140, 430, 280, 60);
         continueButton.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -74,6 +81,7 @@ public class GoalPanel extends JPanel {
         continueButton.setBorder(BorderFactory.createEmptyBorder());
         continueButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        // Hover effect
         continueButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 continueButton.setBackground(new Color(36, 184, 93));
@@ -83,30 +91,34 @@ public class GoalPanel extends JPanel {
                 continueButton.setBackground(new Color(46, 204, 113));
             }
         });
-
+        // ========= Save goal and move to dashboard =========
         continueButton.addActionListener(e -> {
             String goalType = (String) goalCombo.getSelectedItem();
             String targetWeightInput = targetWeightText.getText().trim();
             String timeFrameInput = timeFrameText.getText().trim();
 
+            // Validate that all fields are filled
             if (targetWeightInput.isEmpty() || timeFrameInput.isEmpty() || goalType.equals("Select")) {
                 JOptionPane.showMessageDialog(GoalPanel.this, "Please fill in all fields!", "Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             try {
+                // changing string to numbers
                 int months = Integer.parseInt(timeFrameInput);
                 double targetWeightValue = Double.parseDouble(targetWeightInput);
-
+                // Must be positive numbers
                 if (targetWeightValue <= 0 || months <= 0) {
                     JOptionPane.showMessageDialog(GoalPanel.this, "Target weight and time frame must be positive!","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                // Save into Goal object
                 Goal userGoal = app.getUserGoal();
                 Profile userProfile = app.getUserProfile();
                 userGoal.setGoalType(goalType);
                 userGoal.setTargetWeight(targetWeightValue);
                 userGoal.setMonths(months);
+                // Calculate daily calorie recommendation
                 userGoal.calculateDailyCalories(userProfile);
 
                 JOptionPane.showMessageDialog(GoalPanel.this,
@@ -121,8 +133,9 @@ public class GoalPanel extends JPanel {
                                 userGoal.getDailyCalorieGoal()),
                         "Goal Summary", JOptionPane.INFORMATION_MESSAGE);
 
-            app.showDashboard();
+            app.showDashboard();                // Go to dashboard
 
+            // Runs if user enters non-numeric values 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(GoalPanel.this, "Target weight and time frame must be valid numbers.", "Error", JOptionPane.ERROR_MESSAGE);
             }

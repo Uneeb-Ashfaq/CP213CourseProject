@@ -3,6 +3,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 
+
+/**
+ * DashboardPanel
+ * Main home screen after login: shows summary cards, profile, meals, and actions.
+ */
 public class DashboardPanel extends JPanel {
     private GUI app;
     private double todayCalories = 0;
@@ -14,7 +19,7 @@ public class DashboardPanel extends JPanel {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        // Header
+        // ===== Header =====
         JLabel welcomeLabel = new JLabel("Welcome back, " + app.getUserProfile().getFirstName() + "! 👋");
         welcomeLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
         welcomeLabel.setForeground(new Color(40, 40, 40));
@@ -22,6 +27,7 @@ public class DashboardPanel extends JPanel {
         welcomeLabel.setBounds(0, 40, screenSize.width, 50);
         add(welcomeLabel);
 
+        // ===== Today's Date =====
         JLabel dateLabel = new JLabel(LocalDate.now().toString());
         dateLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
         dateLabel.setForeground(new Color(120, 120, 120));
@@ -29,16 +35,16 @@ public class DashboardPanel extends JPanel {
         dateLabel.setBounds(0, 90, screenSize.width, 25);
         add(dateLabel);
 
+         // Calculate today's total calories
         todayCalories = 0;
         for (Meal meal : app.getMeals()) {
             todayCalories += meal.getCalories() * meal.getServingAmount();
         }
         int cardsStartX = (screenSize.width - 1080) / 2;
 
-        // ==================================
+        // ==========================
         // Card 1: Today's Calories
-        // ==================================
-
+        // ==========================
         String caloriesValue = String.format("%.0f / %.0f kcal", todayCalories,
                 app.getUserGoal().getDailyCalorieGoal());
         String caloriesRemaining = String.format("%.0f remaining",
@@ -70,10 +76,9 @@ public class DashboardPanel extends JPanel {
         desc1.setForeground(new Color(100, 100, 100));
         desc1.setBounds(15, 100, 310, 25);
         calorieCard.add(desc1);
-        // ==================================
+        // ==========================
         // Card 2: Goal Progress
-        // ==================================
-
+        // ==========================
         double remaining = Math.abs(app.getUserGoal().getTargetWeight() - app.getUserProfile().getWeight());
         String goalText = app.getUserGoal().getGoalType().equals("Lose") ? "to lose"
                 : app.getUserGoal().getGoalType().equals("Gain") ? "to gain" : "to maintain";
@@ -105,10 +110,10 @@ public class DashboardPanel extends JPanel {
         desc2.setForeground(new Color(100, 100, 100));
         desc2.setBounds(15, 100, 310, 25);
         goalCard.add(desc2);
-        // ==================================
-        // Card 3: Activity Level
-        // ==================================
 
+        // ==========================
+        // Card 3: Activity Level
+        // ==========================
         String activityValue = app.getUserProfile().getActivityLevel();
         String activityDesc = "Current level";
 
@@ -141,7 +146,7 @@ public class DashboardPanel extends JPanel {
         activityCard.add(desc3);
 
         // =======================
-        // Profile and Meals columns
+        // Profile + Meals sections
         // =======================
         int contentStartX = (screenSize.width - 1040) / 2;
 
@@ -190,7 +195,7 @@ public class DashboardPanel extends JPanel {
         profileBox.add(profileText);
         add(profileBox);
 
-        // Meals header + box
+        // Meals box
         int mealsX = contentStartX + 560;
 
         JLabel mealsHeader = new JLabel("Today's Meals");
@@ -206,8 +211,7 @@ public class DashboardPanel extends JPanel {
         mealsBox.setBounds(mealsX, 370, 480, 280);
 
         if (app.getMeals().isEmpty()) {
-            JLabel noMeals = new JLabel(
-                    "<html><center>No meals logged yet.<br><br>Click 'Log Meal' to get started!</center></html>");
+            JLabel noMeals = new JLabel("No meals logged yet. Click 'Log Meal' to get started!");
             noMeals.setFont(new Font("SansSerif", Font.PLAIN, 16));
             noMeals.setForeground(new Color(150, 150, 150));
             noMeals.setHorizontalAlignment(SwingConstants.CENTER);

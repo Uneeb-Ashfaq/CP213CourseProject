@@ -3,18 +3,27 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// ---------------------------------------------------------------------
 
+
+/**
+ * GUI
+ * Main application controller.
+ * Creates the main window, holds shared data (Profile, Goal, Meals),
+ * and switches between different screens (panels).
+ */
 public class GUI {
     // Variables to store user data
     private JFrame frame;
+    
     private Profile userProfile;
     private Goal userGoal;
     private ArrayList<Meal> meals;
+
+    
     private String registeredEmail;
     private String registeredPassword;
 
-
+    // Panels used in the app
     private IntroPanel introPanel;
     private ProfilePanel profilePanel;
     private SignupPanel signPanel;
@@ -25,18 +34,25 @@ public class GUI {
 
 
     // ---------------------------------------------------------------------
-
+    /**
+     * Constructs the GUI, initializes data and panels, and shows the intro screen.
+     */
     public GUI() {
         frame = new JFrame("CalorieAppTracker");
+
+        // Create empty data objects
         userProfile = new Profile(); // Create empty profile
         userGoal = new Goal();
         meals = new ArrayList<>();
 
+        // Setup main window
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // window fills the screen
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Center the window
 
+
+        // Create panels (some are reused, some recreated in show methods)
         introPanel = new IntroPanel(this);
         loginPanel = new LoginPanel(this);
         signPanel = new SignupPanel(this);
@@ -45,22 +61,27 @@ public class GUI {
         addMealPanel = new AddMealPanel(this);
         resetPasswordPanel = new ResetPasswordPanel(this);
 
-
-        showDashboard();
+        // Show first screen
+        showIntroPanel();
         frame.setVisible(true);
     }
+
+
+// ========= Navigation methods =========
 
     public void showIntroPanel() {
         setContent(introPanel);
     }
 
     public void showLoginPanel() {
-        setContent(new LoginPanel(this));
+        setContent(new LoginPanel(this));    // Create fresh LoginPanel each time (so fields are cleared)
+
 
     }
 
     public void showSignupPanel() {
-        setContent(new SignupPanel(this));
+        setContent(new SignupPanel(this));        // Create fresh SignupPanel each time
+
 
     }
 
@@ -86,13 +107,16 @@ public class GUI {
     public void showAddMealPage() {
         setContent(new AddMealPanel(this));
     }
-
- 
+    /**
+     * Helper method that swaps the visible panel.
+     */
     private void setContent(JPanel panel) {
         frame.setContentPane(panel);
         frame.revalidate();
         frame.repaint();
     }
+
+// ========= Getters for shared data =========
 
     public Profile getUserProfile() {
         return userProfile;
@@ -109,8 +133,9 @@ public class GUI {
     public JFrame getFrame() {
         return frame;
     }
+    // ========= Login / signup credentials =========
 
-        public void setRegisteredCredentials(String email, String password) {
+    public void setRegisteredCredentials(String email, String password) {
         this.registeredEmail = email;
         this.registeredPassword = password;
     }

@@ -2,19 +2,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * ResetPasswordPanel
+ * Allows the user to reset their password by entering their registered email
+ * and choosing a new password. Includes simple validation and navigation.
+ */
 public class ResetPasswordPanel extends JPanel {
-
+    // Reference to main GUI app 
     private GUI app;
 
+    /**
+     * Constructs the reset password screen.
+     */
     public ResetPasswordPanel(GUI app) {
         this.app = app;
         setLayout(null);
         setBackground(new Color(245, 245, 245));
 
+        // Get screen size for centering content
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = screenSize.width / 2;
         int centerY = screenSize.height / 2;
 
+        // ===== Header text =====
         JLabel header = new JLabel("Reset Your Password");
         header.setFont(new Font("SansSerif", Font.BOLD, 36));
         header.setHorizontalAlignment(SwingConstants.CENTER);
@@ -23,7 +33,7 @@ public class ResetPasswordPanel extends JPanel {
         add(header);
 
 
-
+        // ===== Subtext =====
         JLabel subText = new JLabel("Enter your registered email and choose a new password.");
         subText.setFont(new Font("SansSerif", Font.PLAIN, 18));
         subText.setForeground(new Color(90, 90, 90));
@@ -31,6 +41,7 @@ public class ResetPasswordPanel extends JPanel {
         subText.setBounds(centerX - 350, 130, 700, 30);
         add(subText);
 
+        // ===== Email field =====
         JLabel email = new JLabel("Registered Email:");
         email.setFont(new Font("SansSerif", Font.BOLD, 16));
         email.setBounds(centerX - 350, 230, 200, 30);
@@ -41,7 +52,7 @@ public class ResetPasswordPanel extends JPanel {
         emailText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(emailText);
 
-        // New Password
+        // ===== New password field =====
         JLabel password = new JLabel("New Password:");
         password.setFont(new Font("SansSerif", Font.BOLD, 16));
         password.setBounds(centerX - 350, 290, 200, 30);
@@ -52,7 +63,7 @@ public class ResetPasswordPanel extends JPanel {
         passwordText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(passwordText);
 
-        // Reset Button
+        // ===== Reset button =====
         JButton resetButton = new JButton("Reset Password");
         resetButton.setBounds(centerX - 140, centerY - 50, 280, 50);
         resetButton.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -70,35 +81,34 @@ public class ResetPasswordPanel extends JPanel {
             public void mouseEntered(MouseEvent e) {
                 resetButton.setBackground(new Color(80, 180, 130));
             }
-
             public void mouseExited(MouseEvent e) {
                 resetButton.setBackground(new Color(100, 200, 150));
             }
         });
-
+        // Reset logic
         resetButton.addActionListener(e -> {
             String emailVal = emailText.getText().trim();
             String newPassVal = new String(passwordText.getPassword()).trim();
-
+            // Check if fields are empty
             if (emailVal.isEmpty() || newPassVal.isEmpty()) {
                 JOptionPane.showMessageDialog(ResetPasswordPanel.this,"Please enter your email and a new password.","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            // Check if email matches registered account
             if (app.getRegisteredEmail() == null || !emailVal.equals(app.getRegisteredEmail())) {
                 JOptionPane.showMessageDialog(ResetPasswordPanel.this,"Email not found.","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            // Save new password
             app.setRegisteredCredentials(emailVal, newPassVal);
-
             JOptionPane.showMessageDialog(ResetPasswordPanel.this,"Password has been reset. Please log in with your new password.", "Success",JOptionPane.INFORMATION_MESSAGE);
-
+            // go back to login
             app.showLoginPanel();
         });
 
         add(resetButton);
 
+        // ===== Back button =====
         JButton backButton = new JButton("Back");
         backButton.setBounds(centerX - 140, 500, 280, 50);
         backButton.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -111,6 +121,7 @@ public class ResetPasswordPanel extends JPanel {
         backButton.setBorder(BorderFactory.createEmptyBorder());
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        // Hover effect for back button
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 backButton.setBackground(new Color(180, 60, 60));
@@ -120,12 +131,15 @@ public class ResetPasswordPanel extends JPanel {
                 backButton.setBackground(new Color(200, 80, 80));
             }
         });
-
+        // Navigate back to login
         backButton.addActionListener(e -> app.showLoginPanel());
         add(backButton);
     }
     
 
+    /**
+     * Paints the background image.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

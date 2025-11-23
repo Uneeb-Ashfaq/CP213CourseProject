@@ -2,9 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * EditProfilePanel
+ * Allows the user to update their existing profile information.
+ */
 public class EditProfilePanel extends JPanel {
 
-    private GUI app;
+    private GUI app; // reference to main GUI
 
     public EditProfilePanel(GUI app) {
         this.app = app;
@@ -16,7 +20,7 @@ public class EditProfilePanel extends JPanel {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = screenSize.width / 2;
 
-        // HEADER
+        // ===== Header =====
         JLabel headerText = new JLabel("Edit Your Profile");
         headerText.setFont(new Font("SansSerif", Font.BOLD, 40));
         headerText.setForeground(new Color(50, 50, 50));
@@ -24,7 +28,7 @@ public class EditProfilePanel extends JPanel {
         headerText.setBounds(centerX - 300, 50, 600, 50);
         add(headerText);
 
-        // First Name
+        // ===== First Name =====
         JLabel firstName = new JLabel("First Name:");
         firstName.setFont(new Font("SansSerif", Font.BOLD, 16));
         firstName.setBounds(centerX - 350, 170 , 200, 30);
@@ -35,7 +39,7 @@ public class EditProfilePanel extends JPanel {
         firstNameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(firstNameText);
 
-        // Last Name
+        // ===== Last Name =====
         JLabel lastName = new JLabel("Last Name:");
         lastName.setFont(new Font("SansSerif", Font.BOLD, 16));
         lastName.setBounds(centerX - 350, 230, 200, 30);
@@ -46,7 +50,7 @@ public class EditProfilePanel extends JPanel {
         lastNameText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(lastNameText);
 
-        // Age
+        // ===== Age =====
         JLabel age = new JLabel("Age:");
         age.setFont(new Font("SansSerif", Font.BOLD, 16));
         age.setBounds(centerX - 350, 290 , 200, 30);
@@ -57,7 +61,7 @@ public class EditProfilePanel extends JPanel {
         ageText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(ageText);
 
-        // Gender
+        // ===== Gender =====
         JLabel gender = new JLabel("Gender:");
         gender.setFont(new Font("SansSerif", Font.BOLD, 16));
         gender.setBounds(centerX - 350, 350 , 200, 30);
@@ -69,7 +73,7 @@ public class EditProfilePanel extends JPanel {
         genderCombo.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(genderCombo);
 
-        // Height
+        // ===== Height =====
         JLabel height = new JLabel("Height (cm):");
         height.setFont(new Font("SansSerif", Font.BOLD, 16));
         height.setBounds(centerX - 350, 410, 200, 30);
@@ -80,7 +84,7 @@ public class EditProfilePanel extends JPanel {
         heightText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(heightText);
 
-        // Weight
+        // ===== Weight =====
         JLabel weight = new JLabel("Weight (kg):");
         weight.setFont(new Font("SansSerif", Font.BOLD, 16));
         weight.setBounds(centerX - 350,  470, 200, 30);
@@ -91,7 +95,7 @@ public class EditProfilePanel extends JPanel {
         weightText.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(weightText);
 
-        // Activity Level
+        // ===== Activity Level =====
         JLabel activityLevel = new JLabel("Activity Level:");
         activityLevel.setFont(new Font("SansSerif", Font.BOLD, 16));
         activityLevel.setBounds(centerX - 350, 530, 200, 30);
@@ -103,7 +107,7 @@ public class EditProfilePanel extends JPanel {
         activityLevelCombo.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(activityLevelCombo);
 
-        // Pre-fill with existing profile data
+        // ===== Fill the fields with existing profile data =====
         Profile userProfile = app.getUserProfile();
         firstNameText.setText(userProfile.getFirstName());
         lastNameText.setText(userProfile.getLastName());
@@ -129,7 +133,7 @@ public class EditProfilePanel extends JPanel {
             }
         }
 
-        // Save Changes Button
+        // ===== Save Button =====
         JButton saveButton = new JButton("Save Changes");
         saveButton.setBounds(centerX - 140, 600, 280, 60);
         saveButton.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -150,7 +154,7 @@ public class EditProfilePanel extends JPanel {
                 saveButton.setBackground(new Color(100, 200, 150));
             }
         });
-
+        // Save updated profile
         saveButton.addActionListener(e -> {
             String firstNameInput = firstNameText.getText().trim();
             String lastNameInput = lastNameText.getText().trim();
@@ -159,6 +163,8 @@ public class EditProfilePanel extends JPanel {
             String heightInput = heightText.getText().trim();
             String weightInput = weightText.getText().trim();
             String activityInput = (String) activityLevelCombo.getSelectedItem();
+
+            // Check all fields filled in
 
             if (firstNameInput.isEmpty() || lastNameInput.isEmpty() || ageInput.isEmpty() || 
                 heightInput.isEmpty() || weightInput.isEmpty() || genderInput.equals("Select") || 
@@ -174,7 +180,7 @@ public class EditProfilePanel extends JPanel {
                 int ageValue = Integer.parseInt(ageInput);
                 double heightValue = Double.parseDouble(heightInput);
                 double weightValue = Double.parseDouble(weightInput);
-                
+                // update profile
                 userProfile.setFirstName(firstNameInput);
                 userProfile.setLastName(lastNameInput);
                 userProfile.setAge(ageValue);
@@ -219,7 +225,7 @@ public class EditProfilePanel extends JPanel {
 
         add(saveButton);
 
-        // Cancel Button
+        // ===== Cancel Button =====
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setBounds(centerX - 140, 680, 280, 50);
         cancelButton.setFont(new Font("SansSerif", Font.BOLD, 16));
