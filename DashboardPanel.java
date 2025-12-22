@@ -79,10 +79,20 @@ public class DashboardPanel extends JPanel {
         // ==========================
         // Card 2: Goal Progress
         // ==========================
-        double remaining = Math.abs(app.getUserGoal().getTargetWeight() - app.getUserProfile().getWeight());
-        String goalText = app.getUserGoal().getGoalType().equals("Lose") ? "to lose"
-                : app.getUserGoal().getGoalType().equals("Gain") ? "to gain" : "to maintain";
-        String valueText = String.format("%.1f kg %s", remaining, goalText);
+        String valueText;
+        String goalType = app.getUserGoal().getGoalType();
+
+        if (goalType.equals("Maintain")) {
+            // Maintain = stay at current weight
+             valueText = String.format("Maintain %.1f kg", app.getUserProfile().getWeight());
+        } else if (goalType.equals("Lose")) {
+            double remaining = app.getUserProfile().getWeight() - app.getUserGoal().getTargetWeight();
+             valueText = String.format("%.1f kg to lose", remaining);
+        } else { // Gain
+            double remaining = app.getUserGoal().getTargetWeight() - app.getUserProfile().getWeight();
+             valueText = String.format("%.1f kg to gain", remaining);
+        }
+
         String descText = app.getUserGoal().getMonths() + " months remaining";
         JPanel goalCard = new JPanel();
         goalCard.setLayout(null);
